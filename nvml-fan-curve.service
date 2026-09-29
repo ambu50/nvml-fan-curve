@@ -1,0 +1,16 @@
+[Unit]
+Description=GPU fan curve via NVIDIA NVML
+Documentation=https://docs.nvidia.com/deploy/nvml-api/api/group__nvmlDeviceCommands.html
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/nvml-fan-curve.conf
+ExecStart=/usr/local/bin/nvml-fan-curve.py
+ExecStop=/usr/local/bin/nvml-fan-curve.py --restore
+Restart=always
+RestartSec=10
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target
